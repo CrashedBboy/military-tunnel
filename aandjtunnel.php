@@ -16,10 +16,14 @@
 
     if (isset($_POST['message']) && $_POST['message'] != '') {
         $new = $_POST['message'];
-        $sql = 'INSERT INTO messages (content, datetime) VALUES ("'.$new.'", "'.date("Y-m-d H:i:s").'")';
+        if (isset($_POST['user']) && ($_POST['user'] == 'A' || $_POST['user'] == 'J') ) {
+            $user = $_POST['user'];
+            $now = date("Y-m-d H:i:s");
 
-        if ($mysqli->query($sql) != TRUE) {
-            echo "Error: " . $mysqli->error;
+            $sql = 'INSERT INTO messages (content, user, datetime) VALUES ("'.$new.'", "'.$user.'", "'.$now.'")';
+            if ($mysqli->query($sql) != TRUE) {
+                echo "Error: " . $mysqli->error;
+            }
         }
     }
 
@@ -32,28 +36,54 @@
         <style>
             .time {
                 color: grey;
-                font-size: 0.5em;
+                font-size: 7px;
             }
             body {
                 color: white;
                 background-color: black;
             }
+
+            .A {
+                color: #71a4f7;
+            }
+
+            .J {
+                color: #f49aa4;
+            }
         </style>
     </head>
     <body>
         <form action="" method="POST">
+            <input type="radio" name="user" id="A" value="A" checked />
+            <label for="A">霖</label>
+            <input type="radio" name="user" id="J" value="J"/>
+            <label for="J">嫚</label>
             <textarea name="message" style="display: block;"></textarea>
-            <input type="submit" value="Send"/>
+            <input type="submit" value="送出"/>
         </form>
 
         <p>
-            <h3>Latest Messages</h3>
+            <h3>-最新訊息-</h3>
             <?php
                 $sql = 'SELECT * FROM messages ORDER BY datetime DESC LIMIT 20';
                 $results = $mysqli->query($sql);
                 while ($message = $results->fetch_assoc() ) {
+                    $str = '<div>';
                     $datetime = date("m/d H:i", strtotime($message['datetime']));
-                    echo '<div><em class="time">'.$datetime.'</em><div>'.$message['content'].'</div></div>';
+                    $str .= '<em class="time">'.$datetime.'</em>';
+
+                    $content = '';
+                    if ($message['user'] == 'A') {
+                        $content .= '<div class="A">霖: '.$message['content'].'</div>';
+                    } else if ($message['user'] == 'J') {
+                        $content .= '<div class="J">嫚: '.$message['content'].'</div>';
+                    } else {
+                        $content .= '<div>'.$message['content'].'</div>';
+                    }
+
+                    $str .= $content.'</div>';
+
+                    echo $str;
                 }
             ?>
         </p>
