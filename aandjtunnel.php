@@ -2,7 +2,7 @@
 
     date_default_timezone_set('Asia/Taipei');
 
-    $dbhost = ':)';
+    $dbhost = '127.0.0.1';
     $dbuser = 'military';
     $dbpass = 'militarysucks';
     $dbname = 'military';
@@ -34,6 +34,10 @@
                 color: grey;
                 font-size: 0.5em;
             }
+            body {
+                color: white;
+                background-color: black;
+            }
         </style>
     </head>
     <body>
@@ -43,7 +47,7 @@
         </form>
 
         <p>
-            <h2>Latest Messages</h2>
+            <h3>Latest Messages</h3>
             <?php
                 $sql = 'SELECT * FROM messages ORDER BY datetime DESC LIMIT 20';
                 $results = $mysqli->query($sql);
