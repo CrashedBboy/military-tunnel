@@ -1,6 +1,26 @@
 <?php
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    require 'vendor/autoload.php';
+
     date_default_timezone_set('Asia/Taipei');
+
+    $url = 'http://host/path/to/site';
+    $austin = 'austin@gmail.com';
+    $joyce = 'joyce@gmail.com';
+
+    $mail = new PHPMailer;
+    $mail->isSMTP();
+    $mail->CharSet = 'UTF-8';
+    $mail->SMTPDebug = 0; // production mode
+    $mail->Host = 'smtp.gmail.com';
+    $mail->Port = 587;
+    $mail->SMTPSecure = 'tls';
+    $mail->SMTPAuth = true;
+
+    // SMTP Auth
+    $mail->Username = 'service@gmail.com';
+    $mail->Password = '30fLS_439GW1cvnslDLS29d';
 
     $dbhost = '127.0.0.1';
     $dbuser = 'military';
@@ -23,6 +43,24 @@
             $sql = 'INSERT INTO messages (content, user, datetime) VALUES ("'.$new.'", "'.$user.'", "'.$now.'")';
             if ($mysqli->query($sql) != TRUE) {
                 echo "Error: " . $mysqli->error;
+            } else {
+
+                // notify joyce
+                if ($user == 'A') {
+                    // Recipients
+                    $mail->setFrom($austin, 'Austin');
+                    $mail->addAddress($joyce, 'JoyceHuang');
+
+                    // Mail Content
+                    $mail->isHTML(true);
+                    $mail->Subject = '來自Military Tunnel的新訊息';
+                    $mail->Body = '<a href="'.$url.'" style="color: #164187;">'.$new.'</a>';
+                    $mail->AltBody = $new;
+
+                    if (!$mail->send()) {
+                        echo "Mailer Error: " . $mail->ErrorInfo;
+                    }
+                }
             }
         }
     }
