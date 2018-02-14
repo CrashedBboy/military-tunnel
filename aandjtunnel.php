@@ -95,11 +95,23 @@
             }
         </style>
     </head>
+
+    <?php
+        // set up default user
+        $austin_checked = '';
+        $joyce_checked = '';
+        if (isset($_GET['default']) && $_GET['default'] == 'j') {
+            $joyce_checked = 'checked';
+        } else {
+            $austin_checked = 'checked';
+        }
+    ?>
+
     <body>
         <form action="" method="POST">
-            <input type="radio" name="user" id="A" value="A" checked />
+            <input type="radio" name="user" id="A" value="A" <?php echo $austin_checked; ?> />
             <label for="A">霖</label>
-            <input type="radio" name="user" id="J" value="J"/>
+            <input type="radio" name="user" id="J" value="J" <?php echo $joyce_checked; ?> />
             <label for="J">嫚</label>
             <textarea name="message" style="display: block;"></textarea>
             <input type="submit" value="送出"/>
