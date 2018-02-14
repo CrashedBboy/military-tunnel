@@ -57,9 +57,10 @@
                     $mail->addAddress($users['joyce'], 'JoyceHuang');
 
                     // Mail Content
+                    $full_url = $home_url.'?default=j';
                     $mail->isHTML(true);
                     $mail->Subject = '來自Military Tunnel的新訊息';
-                    $mail->Body = '<a href="'.$home_url.'" style="color: #164187;">'.$new_content.'</a>';
+                    $mail->Body = '<a href="'.$full_url.'" style="color: #164187;">'.$new_content.'</a>';
                     $mail->AltBody = $new_content;
 
                     if (!$mail->send()) {
