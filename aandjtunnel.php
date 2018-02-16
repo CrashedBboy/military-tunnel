@@ -38,7 +38,7 @@
     $mysqli->query("SET NAMES utf8");
 
     if (isset($_POST['message']) && $_POST['message'] != '') {
-        $new_content = $_POST['message'];
+        $new_content = htmlspecialchars($_POST['message']);
 
         if (isset($_POST['user']) && ($_POST['user'] == 'A' || $_POST['user'] == 'J') ) {
             $new_user = $_POST['user'];
