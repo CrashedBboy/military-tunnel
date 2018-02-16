@@ -155,7 +155,7 @@
 
                     $str .= $content.'</div>';
 
-                    echo $str;
+                    echo nl2br($str);
                 }
             ?>
         </p>
