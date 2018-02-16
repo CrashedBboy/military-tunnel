@@ -76,23 +76,36 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>A&J's Tunnel</title>
         <style>
             .time {
                 color: grey;
-                font-size: 7px;
+                font-size: 0.7rem;
             }
             body {
                 color: white;
-                background-color: black;
+                background-color: rgb(30, 30, 30);
+                font-family: 微軟正黑體;
             }
-
             .A {
                 color: #71a4f7;
             }
 
             .J {
                 color: #f49aa4;
+            }
+            #editor {
+                width: 100%;
+                border-radius: 5px;
+            }
+            #submit {
+                border-radius: 2px;
+                color: white;
+                background-color: grey;
+                border: none;
+                padding: 0.2rem 3rem 0.2rem 3rem;
+                font-family: 微軟正黑體;
             }
         </style>
     </head>
@@ -114,8 +127,8 @@
             <label for="A">霖</label>
             <input type="radio" name="user" id="J" value="J" <?php echo $joyce_checked; ?> />
             <label for="J">嫚</label>
-            <textarea name="message" style="display: block;"></textarea>
-            <input type="submit" value="送出"/>
+            <textarea id="editor" name="message"></textarea>
+            <input id="submit" type="submit" value="送出"/>
         </form>
 
         <p>
