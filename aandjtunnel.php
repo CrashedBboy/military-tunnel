@@ -85,18 +85,33 @@
             .time {
                 color: grey;
                 font-size: 0.7rem;
+                display: inline-block;
             }
             body {
                 color: white;
                 background-color: rgb(30, 30, 30);
                 font-family: 微軟正黑體;
             }
+            .message {
+                margin-bottom: 0.3rem;
+            }
             .A {
                 color: #71a4f7;
             }
-
+            .user-tag {
+                display: inline-block;
+                padding: 0.1rem;
+                border-radius: 3px;
+                margin-right: 3px;
+            }
+            .A-tag {
+                background-color: #476aa2;
+            }
             .J {
                 color: #f49aa4;
+            }
+            .J-tag {
+                background-color: #ab6068;
             }
             #editor {
                 width: 100%;
@@ -140,17 +155,16 @@
                 $sql = 'SELECT * FROM messages ORDER BY datetime DESC LIMIT 20';
                 $results = $mysqli->query($sql);
                 while ($message = $results->fetch_assoc() ) {
-                    $str = '<div>';
+                    $str = '<div class="message">';
                     $datetime = date("m/d H:i", strtotime($message['datetime']));
-                    $str .= '<em class="time">'.$datetime.'</em>';
 
                     $content = '';
                     if ($message['user'] == 'A') {
-                        $content .= '<div class="A">霖: '.$message['content'].'</div>';
+                        $str .= '<span class="user-tag A-tag">霖</span><em class="time">'.$datetime.'</em>';
+                        $content .= '<div class="A"> '.$message['content'].'</div>';
                     } else if ($message['user'] == 'J') {
-                        $content .= '<div class="J">嫚: '.$message['content'].'</div>';
-                    } else {
-                        $content .= '<div>'.$message['content'].'</div>';
+                        $str .= '<span class="user-tag J-tag">嫚</span><em class="time">'.$datetime.'</em>';
+                        $content .= '<div class="J">'.$message['content'].'</div>';
                     }
 
                     $str .= $content.'</div>';
