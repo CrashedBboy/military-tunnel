@@ -152,7 +152,7 @@
         <p>
             <h3>-最新訊息-</h3>
             <?php
-                $sql = 'SELECT * FROM messages ORDER BY datetime DESC LIMIT 20';
+                $sql = 'SELECT * FROM messages ORDER BY datetime DESC LIMIT 30';
                 $results = $mysqli->query($sql);
                 while ($message = $results->fetch_assoc() ) {
                     $str = '<div class="message">';
